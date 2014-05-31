@@ -8,5 +8,10 @@
         DIESB - Dados sobre ensino superior do Brasil
     </h2>
     <label>Estado:</label>
+    <br />
     <asp:DropDownList ID="ddlEstado" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlEstado_Click"></asp:DropDownList>
+    <br />
+    Curso de nível superior: <asp:TextBox ID="txtCurso" runat="server"></asp:TextBox>
+    <br />
+    <asp:Button ID="btnPesquisar" runat="server" Text="Pesquisar" />
 </asp:Content>

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIESB.Web", "DIESB.Web\DIESB.Web.csproj", "{6AF344D0-0A54-455C-85E5-C47AAB08ED85}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DIESB.Negocio", "DIESB.Negocio\DIESB.Negocio.csproj", "{60163A95-29DD-4838-81EA-6EAF0A5F8014}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{6AF344D0-0A54-455C-85E5-C47AAB08ED85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6AF344D0-0A54-455C-85E5-C47AAB08ED85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6AF344D0-0A54-455C-85E5-C47AAB08ED85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60163A95-29DD-4838-81EA-6EAF0A5F8014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60163A95-29DD-4838-81EA-6EAF0A5F8014}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60163A95-29DD-4838-81EA-6EAF0A5F8014}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60163A95-29DD-4838-81EA-6EAF0A5F8014}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
