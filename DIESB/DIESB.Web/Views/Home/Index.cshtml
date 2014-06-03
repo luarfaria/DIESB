@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DIESB.Negocio.IndexViewModel>
+
+
+<div class="hero-unit">
+    <h1 id="transitions" class="page-header">Seja bem vindo ao DIESB <small>- Dados de Instituições de Ensino Superior do Brasil</small></h1>
+    <p>Aqui você pode consultar pelo nome um curso de pós graduação (Mestrado, Doutorado, Pós Doutorado) e o site te entregará uma lista de instituições que fornecem esse curso.</p>
+</div>
+<br />
+
+<p>
+    @{Html.RenderAction("Pesquisa", "Home");}
+</p>
+
+@if (Model != null)
+{
+    <br/>
+    <table class="table table-striped table-bordered table-condensed">
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Instituicao.Descricao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProgramaPosGraduacao.Descricao)
+                </td>
+                @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                </td>*@
+            </tr>
+        }
+
+    </table>
+}
+
+else
+{
+
+}
+<hr />
+<p>Informações retiradas do site da CAPES - www.capes.org.br</p>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/bundles/bootstrap-select")
+
+<script type="text/javascript">
+    $("document").ready(function () {
+        $('.selectpicker').selectpicker();
+    });
+</script>

@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DIESB.Web.Global" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="DIESB.Web.MvcApplication" Language="C#" %>

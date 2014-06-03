@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DIESBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="DIESBModelStoreContainer">
+          <EntitySet Name="Instituicao" EntityType="DIESBModel.Store.Instituicao" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ProgramaPosGraduacao" EntityType="DIESBModel.Store.ProgramaPosGraduacao" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UF" EntityType="DIESBModel.Store.UF" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Instituicao_0" Association="DIESBModel.Store.FK_Instituicao_0">
+            <End Role="UF" EntitySet="UF" />
+            <End Role="Instituicao" EntitySet="Instituicao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramaPosGraduacao_0" Association="DIESBModel.Store.FK_ProgramaPosGraduacao_0">
+            <End Role="Instituicao" EntitySet="Instituicao" />
+            <End Role="ProgramaPosGraduacao" EntitySet="ProgramaPosGraduacao" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Instituicao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ID_UF" Type="int" />
+        </EntityType>
+        <EntityType Name="ProgramaPosGraduacao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="ID_Instituicao" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UF">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Descricao" Type="nvarchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Instituicao_0">
+          <End Role="UF" Type="DIESBModel.Store.UF" Multiplicity="0..1" />
+          <End Role="Instituicao" Type="DIESBModel.Store.Instituicao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UF">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Instituicao">
+              <PropertyRef Name="ID_UF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramaPosGraduacao_0">
+          <End Role="Instituicao" Type="DIESBModel.Store.Instituicao" Multiplicity="1" />
+          <End Role="ProgramaPosGraduacao" Type="DIESBModel.Store.ProgramaPosGraduacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instituicao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProgramaPosGraduacao">
+              <PropertyRef Name="ID_Instituicao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DIESBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="DIESBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Instituicao" EntityType="DIESBModel.Instituicao" />
+          <EntitySet Name="ProgramaPosGraduacao" EntityType="DIESBModel.ProgramaPosGraduacao" />
+          <EntitySet Name="UF" EntityType="DIESBModel.UF" />
+          <AssociationSet Name="FK_Instituicao_0" Association="DIESBModel.FK_Instituicao_0">
+            <End Role="UF" EntitySet="UF" />
+            <End Role="Instituicao" EntitySet="Instituicao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProgramaPosGraduacao_0" Association="DIESBModel.FK_ProgramaPosGraduacao_0">
+            <End Role="Instituicao" EntitySet="Instituicao" />
+            <End Role="ProgramaPosGraduacao" EntitySet="ProgramaPosGraduacao" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Instituicao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="ID_UF" />
+          <NavigationProperty Name="UF" Relationship="DIESBModel.FK_Instituicao_0" FromRole="Instituicao" ToRole="UF" />
+          <NavigationProperty Name="ProgramaPosGraduacao" Relationship="DIESBModel.FK_ProgramaPosGraduacao_0" FromRole="Instituicao" ToRole="ProgramaPosGraduacao" />
+        </EntityType>
+        <EntityType Name="ProgramaPosGraduacao">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ID_Instituicao" Nullable="false" />
+          <NavigationProperty Name="Instituicao" Relationship="DIESBModel.FK_ProgramaPosGraduacao_0" FromRole="ProgramaPosGraduacao" ToRole="Instituicao" />
+        </EntityType>
+        <EntityType Name="UF">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Int32" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Descricao" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Instituicao" Relationship="DIESBModel.FK_Instituicao_0" FromRole="UF" ToRole="Instituicao" />
+        </EntityType>
+        <Association Name="FK_Instituicao_0">
+          <End Type="DIESBModel.UF" Role="UF" Multiplicity="0..1" />
+          <End Type="DIESBModel.Instituicao" Role="Instituicao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UF">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Instituicao">
+              <PropertyRef Name="ID_UF" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProgramaPosGraduacao_0">
+          <End Type="DIESBModel.Instituicao" Role="Instituicao" Multiplicity="1" />
+          <End Type="DIESBModel.ProgramaPosGraduacao" Role="ProgramaPosGraduacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instituicao">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ProgramaPosGraduacao">
+              <PropertyRef Name="ID_Instituicao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DIESBModelStoreContainer" CdmEntityContainer="DIESBContext">
+          <EntitySetMapping Name="Instituicao">
+            <EntityTypeMapping TypeName="DIESBModel.Instituicao">
+              <MappingFragment StoreEntitySet="Instituicao">
+                <ScalarProperty Name="ID_UF" ColumnName="ID_UF" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProgramaPosGraduacao">
+            <EntityTypeMapping TypeName="DIESBModel.ProgramaPosGraduacao">
+              <MappingFragment StoreEntitySet="ProgramaPosGraduacao">
+                <ScalarProperty Name="ID_Instituicao" ColumnName="ID_Instituicao" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UF">
+            <EntityTypeMapping TypeName="DIESBModel.UF">
+              <MappingFragment StoreEntitySet="UF">
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DIESBContext">
+        <EntityTypeShape EntityType="DIESBModel.Instituicao" Width="1.5" PointX="3" PointY="0.875" Height="1.9802864583333326" />
+        <EntityTypeShape EntityType="DIESBModel.ProgramaPosGraduacao" Width="1.5" PointX="5.25" PointY="1" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="DIESBModel.UF" Width="1.5" PointX="0.75" PointY="1.125" Height="1.5956835937499996" />
+        <AssociationConnector Association="DIESBModel.FK_Instituicao_0" >
+          <ConnectorPoint PointX="2.25" PointY="1.9228417968749998" />
+          <ConnectorPoint PointX="3" PointY="1.9228417968749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="DIESBModel.FK_ProgramaPosGraduacao_0" >
+          <ConnectorPoint PointX="4.5" PointY="1.8939925130208328" />
+          <ConnectorPoint PointX="5.25" PointY="1.8939925130208328" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>
