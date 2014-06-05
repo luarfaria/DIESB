@@ -10,5 +10,7 @@ namespace DIESB.Negocio
     {
         public ProgramaPosGraduacao ProgramaPosGraduacao { get; set; }
         public Instituicao Instituicao { get; set; }
+        public UF UF { get; set; }
+        public int Count { get; set; }
     }
 }

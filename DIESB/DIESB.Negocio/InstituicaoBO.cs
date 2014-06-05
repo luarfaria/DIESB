@@ -16,12 +16,53 @@ namespace DIESB.Negocio
             }
         }
 
-        public IList<IndexViewModel> GetByCursosSearch(String curso, String UF)
+        public IList<IndexViewModel> GetByCursosSearch(String curso, String UF, int pagina)
         {
             using (var db = new DIESBContext())
             {
-                return db.ProgramaPosGraduacao.Where(x => String.IsNullOrEmpty(UF) ? true : x.Instituicao.UF.Descricao == UF && String.IsNullOrEmpty(curso) ? true : x.Descricao.Contains(curso))
-                    .Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x }).Distinct().ToList();
+                IList<IndexViewModel> list = new List<IndexViewModel>();
+                if(!String.IsNullOrEmpty(curso) && !String.IsNullOrEmpty(UF))
+                {
+                    var item = db.ProgramaPosGraduacao
+                   .Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x, UF = x.Instituicao.UF })
+                   .Where(x => x.UF.Descricao == UF && x.ProgramaPosGraduacao.Descricao.Contains(curso))
+                   .Distinct().OrderBy(x => x.ProgramaPosGraduacao.Descricao).ToList();
+
+                    int skip = (200 * pagina) > item.Count ? 0 : 200 * pagina;
+                    list = item.Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x.ProgramaPosGraduacao, UF = x.Instituicao.UF, Count = item.Count() }).Skip(skip).Take(200).ToList();                    
+                }
+
+                else if (String.IsNullOrEmpty(curso) && String.IsNullOrEmpty(UF))
+                {
+                    var item = db.ProgramaPosGraduacao
+                   .Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x, UF = x.Instituicao.UF })
+                   .Distinct().OrderBy(x => x.ProgramaPosGraduacao.Descricao).ToList();
+
+                    int skip = (200 * pagina) > item.Count ? 0 : 200 * pagina;
+                    list = item.Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x.ProgramaPosGraduacao, UF = x.Instituicao.UF, Count = item.Count() }).Skip(skip).Take(200).ToList();
+                }
+
+                else if(String.IsNullOrEmpty(curso))
+                {
+                    var item = db.ProgramaPosGraduacao
+                   .Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x, UF = x.Instituicao.UF })
+                   .Where(x => x.UF.Descricao == UF).Distinct().OrderBy(x => x.ProgramaPosGraduacao.Descricao).ToList();
+
+                    int skip = (200 * pagina) > item.Count ? 0 : 200 * pagina;
+                    list = item.Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x.ProgramaPosGraduacao, UF = x.Instituicao.UF, Count = item.Count() }).Skip(skip).Take(200).ToList();
+                }
+                
+                else if(String.IsNullOrEmpty(UF))
+                {
+                    var item = db.ProgramaPosGraduacao
+                   .Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x, UF = x.Instituicao.UF })
+                   .Where(x => x.ProgramaPosGraduacao.Descricao.Contains(curso)).Distinct().OrderBy(x => x.ProgramaPosGraduacao.Descricao).ToList();
+
+                    int skip = (200 * pagina) > item.Count ? 0 : 200 * pagina;
+                    list = item.Select(x => new IndexViewModel { Instituicao = x.Instituicao, ProgramaPosGraduacao = x.ProgramaPosGraduacao, UF = x.Instituicao.UF, Count = item.Count() }).Skip(skip).Take(200).ToList();                    
+                }
+                
+                return list;
             }
         }
     }
